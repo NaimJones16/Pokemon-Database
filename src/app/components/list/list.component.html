@@ -1,0 +1,21 @@
+<h1>Welcome to the Pokemon Database</h1>
+<div *ngFor="let pokemon of pokemons; let i = index" class="PokeList">
+		<div id="card" class="card mb-3 bg-{{getType(pokemon)}}" [routerLink]="['/view', pokemon.name]">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-7 col-sm-8">
+						<h3 class="card-title">{{pokemon.name | titlecase}}</h3>
+						<span *ngFor="let type of pokemon.types"
+							class="bg-{{getType(pokemon)}}">
+							{{type.type.name | titlecase}}
+						</span>
+					</div>
+
+					<div class="col-5 col-sm-4">
+						<img src="https://img.pokemondb.net/sprites/home/normal/{{pokemon.name}}.png" class="img-fluid"
+							alt="...">
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
