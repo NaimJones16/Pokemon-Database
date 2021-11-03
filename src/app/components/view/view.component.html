@@ -1,0 +1,56 @@
+<div class="row">
+   <div class="col-sm-6">
+      <div class="mt-2">
+         <h1>{{pokemon.name | titlecase}}</h1>
+
+      </div>
+
+      <ul class="list-group list-group-flush mt-4" style="width: 20rem;">
+         <span *ngFor="let type of pokemon.types" class="badge border rounded-pill me-1 bg-{{getType(pokemon)}}">
+            {{type.type.name | titlecase}}
+         </span>
+         <div class="divider"></div>
+         <span class="list-group-item bg-transparent">Height <b class="float-end">{{pokemon.height}} inches</b></span>
+         <div class="divider"></div>
+         <span class="list-group-item bg-transparent">Weight <b class="float-end">{{pokemon.weight}} lbs</b></span>
+      </ul>
+   </div>
+   <div class="col-sm-6">
+      <!-- <a href="http://pokemondb.net/pokedex/bulbasaur"><img src="https://img.pokemondb.net/sprites/black-white/anim/normal/bulbasaur.gif" alt="Bulbasaur"></a> -->
+      <img src="https://img.pokemondb.net/sprites/black-white/anim/normal/{{pokemon.name}}.gif" alt=""
+         class="img-fluid d-block mx-auto" style="width: 300px;">
+   </div>
+</div>
+
+
+<!-- stats -->
+<div class="card mb-3">
+   <div class="card-body">
+      <h4 class="card-title">Stats</h4>
+      <div *ngFor="let stat of pokemon.stats" class="row mt-3">
+         <div class="col-sm-2">
+            <h6 class="text-sm-end mt-1">{{stat.stat.name | titlecase}}</h6>
+         </div>
+         <div class="col-sm-10">
+            <div class="progress" style="height: 30px">
+               <div class="progress-bar progress-bar-striped bg-{{getType(pokemon)}}" role="progressbar"
+                  style="height: 30px;" [style.width]="stat.base_stat + '%'" aria-valuemin="0" aria-valuemax="100">
+                  <b>{{stat.base_stat}}</b>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- abilities -->
+<div id="abilities" class="card mb-3">
+   <div class="card-body">
+      <h4>Abilities</h4>
+   </div>
+   <ul class="list-group list-group-flush">
+      <li *ngFor="let ability of pokemon.abilities" class="list-group-item">
+         {{ability.ability.name | titlecase}}
+      </li>
+   </ul>
+</div>
