@@ -8,12 +8,16 @@ import {MatIconModule} from '@angular/material/icon';
 import { ListComponent } from './components/list/list.component';
 import { ViewComponent } from './components/view/view.component';
 import {MatCardModule} from '@angular/material/card';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { PaginatorComponent } from './paginator/paginator.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    ViewComponent
+    ViewComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,7 @@ import {MatCardModule} from '@angular/material/card';
     MatSidenavModule,
     MatIconModule,
     MatCardModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

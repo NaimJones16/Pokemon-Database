@@ -27,3 +27,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+
+To Run:
+
+1. Install node.js
+2. Run git clone [git repository link]
+3. Go to computer and open file in editor
+4. Open terminal in folder of code run [npm i]
+5. run [ng serve]

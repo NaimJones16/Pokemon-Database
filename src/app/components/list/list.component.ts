@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PokeDataService } from 'src/app/services/poke-data.service';
 import { concat, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class ListComponent implements OnInit {
-  static _pageSize = 15;
+  page = 1;
+  count = this.pokemons.length;
+  _pageSize = 25;
   loading: boolean = false;
   subscriptions: Subscription[] = [];
   poke: any;
@@ -18,9 +22,9 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     if (!this.pokemons.length) {
       this.loadMore();
-      //0, ListComponent._pageSize
     }
   }
+
 
   get pokemons(): any[] {
     return this.pokemonService.pokemons;
@@ -46,6 +50,27 @@ export class ListComponent implements OnInit {
     return this.pokemonService.getType(pokemon);
   }
 
-  
- 
+  fetchPokemon(): void {
+    this.pokemonService.getPokemon(this._pageSize, this.page)
+      .subscribe(
+        response => {
+          this.poke = response;
+          console.log(response);
+        }),
+      (error: any) => {
+        console.log(error);
+      }
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.fetchPokemon();
+  }
+
+  onTableSizeChange(event: any): void {
+    this._pageSize = event.target.value;
+    this.page = 1;
+    this.fetchPokemon();
+  }
+
 }

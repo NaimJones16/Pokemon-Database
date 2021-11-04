@@ -1,21 +1,83 @@
 <h1>Welcome to the Pokemon Database</h1>
-<div *ngFor="let pokemon of pokemons; let i = index" class="PokeList">
-		<div id="card" class="card mb-3 bg-{{getType(pokemon)}}" [routerLink]="['/view', pokemon.name]">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-7 col-sm-8">
-						<h3 class="card-title">{{pokemon.name | titlecase}}</h3>
-						<span *ngFor="let type of pokemon.types"
-							class="bg-{{getType(pokemon)}}">
-							{{type.type.name | titlecase}}
-						</span>
-					</div>
+<div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 25, currentPage: page, totalItems: count}" class="PokeList">
+<!-- <div *ngFor="let pokemon of pokemons; let i = index" class="PokeList"> -->
+	<div id="card" class="card mb-3 bg-{{getType(pokemon)}}" [routerLink]="['/view', pokemon.name]">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-7 col-sm-8">
+					<h3 class="card-title">{{pokemon.name | titlecase}}</h3>
+					<span class="h3">
+						{{pokemon.id}}
+					</span>
+					<span *ngFor="let type of pokemon.types" class="bg-{{getType(pokemon)}}">
+						{{type.type.name | titlecase}}
+					</span>
+				</div>
 
-					<div class="col-5 col-sm-4">
-						<img src="https://img.pokemondb.net/sprites/home/normal/{{pokemon.name}}.png" class="img-fluid"
-							alt="...">
-					</div>
+				<div class="col-5 col-sm-4">
+					<img src="https://img.pokemondb.net/sprites/home/normal/{{pokemon.name}}.png" class="img-fluid"
+						alt="...">
 				</div>
 			</div>
 		</div>
+	</div>
 </div>
+<div class="d-flex justify-content-center">
+	<pagination-controls previousLabel="Prev" nextLabel="Next"
+		(pageChange)="onTableDataChange($event)">
+	</pagination-controls>
+</div>
+  
+<!-- <div class="d-flex flex-row-reverse bd-highlight mb-2">
+	<div class="p-2 bd-highlight">
+	  <select (change)="onTableSizeChange($event)" class="custom-select">
+		<option *ngFor="let size of _pageSize" [ngValue]="size">
+		  {{ size }}
+		</option>
+	  </select>
+	</div>
+  </div> 
+
+  <table class="table">
+	<thead>
+	  <tr>
+		<th>ID</th>
+		<th>Title</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr *ngFor="let pokemon of pokemons | paginate : {
+				itemsPerPage: _pageSize,
+				currentPage: page,
+				totalItems: count
+			  };
+		let i = index" [class.active]="i == currentIndex">
+		<th scope="row">{{pokemon.id}}</th>
+		<td>{{pokemon.name}}</td>
+	  </tr>
+	</tbody>
+  </table>
+</div> -->
+
+
+<!-- <pagination-template #p="paginationApi"(pageChange)="onTableDataChange($event)">
+
+        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+            <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
+        </div>
+
+        <div *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+            <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                <span>{{ page.label }}</span>
+            </a>
+            <div *ngIf="p.getCurrent() === page.value">
+                <span>{{ page.label }}</span>
+            </div>
+        </div>
+
+        <div class="pagination-next" [class.disabled]="p.isLastPage()">
+            <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+        </div>
+    
+</pagination-template> -->
+
